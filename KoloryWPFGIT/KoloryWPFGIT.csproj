@@ -54,6 +54,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Konwertery.cs" />
+    <Compile Include="ModelWidoku\EdycjaKoloru.cs" />
+    <Compile Include="ModelWidoku\ObservedObject.cs" />
+    <Compile Include="ModelWidoku\Polecenia.cs" />
+    <Compile Include="Model\Kolor.cs" />
+    <Compile Include="Model\Ustawienia.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -91,7 +97,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

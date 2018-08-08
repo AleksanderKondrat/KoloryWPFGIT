@@ -4,9 +4,54 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KoloryWPFGIT"
+        xmlns:vm="clr-namespace:KoloryWPFGIT.ModelWidoku"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Kolory" Height="427" Width="800"
+        KeyDown="Window_KeyDown"
+        Closed="Window_Closed">
+
+
+    <Window.DataContext>
+        <vm:EdycjaKoloru />
+    </Window.DataContext>
+
+    <!-- Tworzenie instancji modelu EdycjaKoloru i przypisanie do DataContext -->
+
+
+    <Window.Resources>
+        <vm:EdycjaKoloru  x:Key="edycjaKoloru" />
+        <local:ByteToDoubleConverter  x:Key="konwersjaByteDouble" />
+        <local:ColorToSolidColorBrushConverter x:Key="konwersjaColorBrush" />
+        <local:PartsARGBToSolidBrushConverter x:Key="konwersjaRGBBrush" />
+        <local:PartsARGBDoubleToSolidBrushConverter x:Key="konwersjaRGBDoubleBrush" />
+
+    </Window.Resources>
+    <!-- Tworzenie instancji modelu EdycjaKoloru i astępnie przypisanie do GRID
+    
+      Fill="{Binding Path=Color, Mode=OneWay, Converter={StaticResource konwersjaColorBrush}}" />
+    -->
+
+    <Grid DataContext="{StaticResource edycjaKoloru}" Height="387" VerticalAlignment="Top">
+        <Rectangle x:Name="rectangle" Margin="10,10,10,0" Stroke="Black" Height="223" VerticalAlignment="Top">
+            <Rectangle.Fill>
+                <MultiBinding Mode="OneWay" Converter="{StaticResource konwersjaRGBDoubleBrush}">
+                    <Binding ElementName="sliderA" Path="Value" />
+                    <Binding ElementName="sliderR" Path="Value" />
+                    <Binding ElementName="sliderG" Path="Value" />
+                    <Binding ElementName="sliderB" Path="Value" />
+                </MultiBinding>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Slider x:Name="sliderR" Margin="10,245,45,0" VerticalAlignment="Top" Maximum="255" Value="{Binding Path=R, Mode=TwoWay, Converter={StaticResource konwersjaByteDouble}}" />
+        <Slider x:Name="sliderG" Margin="10,268,45,0" VerticalAlignment="Top" Maximum="255" Value="{Binding Path=G, Mode=TwoWay, Converter={StaticResource konwersjaByteDouble}}" />
+        <Slider x:Name="sliderB" Margin="10,291,45,0" VerticalAlignment="Top" Maximum="255" Value="{Binding Path=B, Mode=TwoWay, Converter={StaticResource konwersjaByteDouble}}" />
+        <Slider x:Name="sliderA" Margin="10,314,45,0" VerticalAlignment="Top" Maximum="255" Value="{Binding Path=A, Mode=TwoWay, Converter={StaticResource konwersjaByteDouble}}" />
+        <TextBlock HorizontalAlignment="Left" Height="18" Margin="752,245,0,0" TextWrapping="Wrap" Text="{Binding ElementName=sliderR, Path=Value}" VerticalAlignment="Top" Width="30"/>
+        <TextBlock HorizontalAlignment="Left" Height="18" Margin="752,268,0,0" TextWrapping="Wrap" Text="{Binding ElementName=sliderG, Path=Value}" VerticalAlignment="Top" Width="30"/>
+        <TextBlock HorizontalAlignment="Left" Height="18" Margin="752,291,0,0" TextWrapping="Wrap" Text="{Binding ElementName=sliderB, Path=Value}" VerticalAlignment="Top" Width="30"/>
+        <TextBlock HorizontalAlignment="Left" Height="18" Margin="752,314,0,0" TextWrapping="Wrap" Text="{Binding ElementName=sliderA, Path=Value}" VerticalAlignment="Top" Width="30"/>
+        <Button Content="Resetuj" HorizontalAlignment="Left" Margin="10,337,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Resetuj}"/>
     </Grid>
+
 </Window>
